@@ -54,3 +54,8 @@ Config.SpeedometerStyles = {
     { id = 19, label = 'Nightwave',           color = '#0ea5e9' },
     { id = 20, label = 'Matrix',              color = '#16a34a' }
 }
+
+
+-- Default placement values in normalized screen coordinates (0.0-1.0)
+Config.DefaultHudPlacement = { x = 0.03, y = 0.78 }
+Config.DefaultSpeedometerPlacement = { x = 0.83, y = 0.78 }
