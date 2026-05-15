@@ -1,21 +1,5 @@
 * { box-sizing: border-box; font-family: Arial, sans-serif; }
-body { margin: 0; overflow: hidden; }
-
-.live-widget {
-  position: fixed;
-  min-width: 180px;
-  padding: 10px;
-  border: 2px solid #3b82f6;
-  border-radius: 10px;
-  background: rgba(2, 6, 23, 0.8);
-  color: #fff;
-  z-index: 10;
-  pointer-events: none;
-}
-
-.live-title { font-size: 12px; opacity: 0.8; }
-.live-style { font-size: 14px; font-weight: 700; }
-.live-speed { font-size: 28px; font-weight: 800; }
+body { margin: 0; }
 
 #app {
   position: fixed;
@@ -24,7 +8,6 @@ body { margin: 0; overflow: hidden; }
   justify-content: center;
   align-items: center;
   background: rgba(0, 0, 0, 0.6);
-  z-index: 20;
 }
 
 .hidden { display: none !important; }
@@ -45,13 +28,47 @@ body { margin: 0; overflow: hidden; }
 .card.active { outline: 2px solid #fff; }
 .badge { width: 100%; height: 12px; border-radius: 999px; margin-top: 8px; }
 
-.placement-stage { position: relative; width: 100%; height: 320px; border: 1px dashed #334155; border-radius: 10px; background: #020617; margin-bottom: 12px; overflow: hidden; }
-.widget { position: absolute; padding: 10px 14px; border-radius: 8px; cursor: move; font-weight: 700; user-select: none; }
+.placement-stage {
+  position: relative;
+  width: 100%;
+  height: 320px;
+  border: 1px dashed #334155;
+  border-radius: 10px;
+  background: #020617;
+  margin-bottom: 12px;
+  overflow: hidden;
+}
+
+.widget {
+  position: absolute;
+  padding: 10px 14px;
+  border-radius: 8px;
+  cursor: move;
+  font-weight: 700;
+  user-select: none;
+}
+
 .widget.hud { background: rgba(59, 130, 246, 0.85); }
 .widget.speedo { background: rgba(16, 185, 129, 0.85); }
 
 .actions { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 8px; }
-.action-btn { border: 0; padding: 10px; border-radius: 8px; background: #2563eb; color: white; cursor: pointer; }
+.action-btn {
+  border: 0;
+  padding: 10px;
+  border-radius: 8px;
+  background: #2563eb;
+  color: white;
+  cursor: pointer;
+}
 .action-btn.secondary { background: #475569; }
 
-.close-btn { margin-top: 20px; width: 100%; border: 0; padding: 12px; border-radius: 8px; background: #2563eb; color: white; cursor: pointer; }
+.close-btn {
+  margin-top: 20px;
+  width: 100%;
+  border: 0;
+  padding: 12px;
+  border-radius: 8px;
+  background: #2563eb;
+  color: white;
+  cursor: pointer;
+}

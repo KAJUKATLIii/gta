@@ -22,7 +22,7 @@ ensure qbox-hud-selector
 
 ## Notes
 
-This resource now includes a built-in live HUD and speedometer preview overlay, style selection, and position persistence.
+This resource demonstrates selection/storage logic and a customizable UI list. Hook the selected style IDs into your existing HUD/speedometer rendering code where needed.
 
 
 ## Placement data

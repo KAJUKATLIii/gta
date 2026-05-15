@@ -8,13 +8,6 @@ const speedometerWidget = document.getElementById('speedometerWidget');
 const saveHudPlacement = document.getElementById('saveHudPlacement');
 const saveSpeedometerPlacement = document.getElementById('saveSpeedometerPlacement');
 const resetPlacements = document.getElementById('resetPlacements');
-const liveHud = document.getElementById('liveHud');
-const liveSpeedometer = document.getElementById('liveSpeedometer');
-const liveHudStyle = document.getElementById('liveHudStyle');
-const liveSpeedStyle = document.getElementById('liveSpeedStyle');
-const liveSpeedValue = document.getElementById('liveSpeedValue');
-
-let speedTick = 0;
 
 const post = (event, body = {}) =>
   fetch(`https://${GetParentResourceName()}/${event}`, {
@@ -35,11 +28,6 @@ function createCard(style, selectedId, onClick) {
 function setWidgetPosition(widget, placement) {
   widget.style.left = `${placement.x * 100}%`;
   widget.style.top = `${placement.y * 100}%`;
-}
-
-function setLivePosition(widget, placement) {
-  widget.style.left = `${placement.x * 100}vw`;
-  widget.style.top = `${placement.y * 100}vh`;
 }
 
 function getWidgetPosition(widget) {
@@ -78,26 +66,6 @@ function makeDraggable(widget) {
   });
 }
 
-function updateLiveDisplays(payload) {
-  const hud = payload.hudStyles.find((item) => item.id === payload.hudStyle);
-  const speedo = payload.speedometerStyles.find((item) => item.id === payload.speedometerStyle);
-
-  if (payload.placements) {
-    setLivePosition(liveHud, payload.placements.hud);
-    setLivePosition(liveSpeedometer, payload.placements.speedometer);
-  }
-
-  if (hud) {
-    liveHud.style.borderColor = hud.color;
-    liveHudStyle.textContent = `Style #${hud.id} ${hud.label}`;
-  }
-
-  if (speedo) {
-    liveSpeedometer.style.borderColor = speedo.color;
-    liveSpeedStyle.textContent = `Style #${speedo.id} ${speedo.label}`;
-  }
-}
-
 function render(payload) {
   hudStylesEl.innerHTML = '';
   speedometerStylesEl.innerHTML = '';
@@ -114,20 +82,14 @@ function render(payload) {
     setWidgetPosition(hudWidget, payload.placements.hud);
     setWidgetPosition(speedometerWidget, payload.placements.speedometer);
   }
-
-  updateLiveDisplays(payload);
 }
 
 window.addEventListener('message', (event) => {
   const { action, data } = event.data;
-  if (!data) return;
-
-  render(data);
-
   if (action === 'open') {
     app.classList.remove('hidden');
+    render(data);
   }
-
   if (action === 'close') {
     app.classList.add('hidden');
   }
@@ -136,20 +98,14 @@ window.addEventListener('message', (event) => {
 makeDraggable(hudWidget);
 makeDraggable(speedometerWidget);
 
-saveHudPlacement.addEventListener('click', async () => {
+saveHudPlacement.addEventListener('click', () => {
   const pos = getWidgetPosition(hudWidget);
-  const result = await post('savePlacement', { element: 'hud', x: pos.x, y: pos.y });
-  if (result.placements) {
-    setLivePosition(liveHud, result.placements.hud);
-  }
+  post('savePlacement', { element: 'hud', x: pos.x, y: pos.y });
 });
 
-saveSpeedometerPlacement.addEventListener('click', async () => {
+saveSpeedometerPlacement.addEventListener('click', () => {
   const pos = getWidgetPosition(speedometerWidget);
-  const result = await post('savePlacement', { element: 'speedometer', x: pos.x, y: pos.y });
-  if (result.placements) {
-    setLivePosition(liveSpeedometer, result.placements.speedometer);
-  }
+  post('savePlacement', { element: 'speedometer', x: pos.x, y: pos.y });
 });
 
 resetPlacements.addEventListener('click', async () => {
@@ -157,15 +113,8 @@ resetPlacements.addEventListener('click', async () => {
   if (result.placements) {
     setWidgetPosition(hudWidget, result.placements.hud);
     setWidgetPosition(speedometerWidget, result.placements.speedometer);
-    setLivePosition(liveHud, result.placements.hud);
-    setLivePosition(liveSpeedometer, result.placements.speedometer);
   }
 });
-
-setInterval(() => {
-  speedTick = (speedTick + 7) % 220;
-  liveSpeedValue.textContent = `${speedTick}`.padStart(3, '0');
-}, 300);
 
 closeBtn.addEventListener('click', () => post('close'));
 document.addEventListener('keydown', (e) => {
