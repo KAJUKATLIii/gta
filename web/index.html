@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>HUD Selector</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div id="app" class="hidden">
+    <div class="panel">
+      <h1>QBOX HUD & Speedometer Selector</h1>
+      <p>Select one of 20 styles and edit on-screen placement.</p>
+
+      <div class="section">
+        <h2>HUD Styles</h2>
+        <div id="hudStyles" class="grid"></div>
+      </div>
+
+      <div class="section">
+        <h2>Speedometer Styles</h2>
+        <div id="speedometerStyles" class="grid"></div>
+      </div>
+
+      <div class="section">
+        <h2>Placement Editor</h2>
+        <p>Drag the widgets to where you want them, then click save.</p>
+        <div id="placementStage" class="placement-stage">
+          <div id="hudWidget" class="widget hud">HUD</div>
+          <div id="speedometerWidget" class="widget speedo">SPEED</div>
+        </div>
+        <div class="actions">
+          <button id="saveHudPlacement" class="action-btn">Save HUD Position</button>
+          <button id="saveSpeedometerPlacement" class="action-btn">Save Speedometer Position</button>
+          <button id="resetPlacements" class="action-btn secondary">Reset Default Positions</button>
+        </div>
+      </div>
+
+      <button id="closeBtn" class="close-btn">Close</button>
+    </div>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
